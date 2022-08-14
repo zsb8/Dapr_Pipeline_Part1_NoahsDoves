@@ -1,5 +1,5 @@
 # noahs-doves
-Scrape data from Internet
+Scrape data from Internet and then pubulish message to middleware(DAPR). This program coded by me.
 ![image](https://user-images.githubusercontent.com/75282285/150705453-9d2bb368-0747-4761-ace3-a91961d8728f.png)
 
 # Set the valuable of Env on K8S
