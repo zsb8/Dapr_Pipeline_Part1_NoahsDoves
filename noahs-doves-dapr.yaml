@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+     app: noahs-doves
+  name: noahs-doves
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: noahs-doves
+  template:
+    metadata:
+      labels:
+        app: noahs-doves
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "noahs-doves"
+        dapr.io/app-port: "6800"
+    spec:
+      containers:
+      - name: noahs-doves
+        image: zsb8/noahs:latest
+        ports:
+        - containerPort: 6800
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: mongo-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: noahs-doves
+spec:
+  selector:
+    app: noahs-doves
+  type: LoadBalancer
+  ports:
+    - port: 6800
+      targetPort: 6800
